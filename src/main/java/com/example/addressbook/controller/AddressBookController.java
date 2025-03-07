@@ -1,6 +1,6 @@
 package com.example.addressbook.controller;
 
-import com.example.addressbook.model.Address;
+import com.example.addressbook.dto.AddressDTO;
 import com.example.addressbook.service.AddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,23 +16,23 @@ public class AddressBookController {
     private AddressBookService addressBookService;
 
     @GetMapping
-    public List<Address> getAllAddresses() {
+    public List<AddressDTO> getAllAddresses() {
         return addressBookService.getAllAddresses();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Address> getAddressById(@PathVariable Long id) {
+    public ResponseEntity<AddressDTO> getAddressById(@PathVariable Long id) {
         return addressBookService.getAddressById(id);
     }
 
     @PostMapping
-    public Address addAddress(@RequestBody Address address) {
-        return addressBookService.addAddress(address);
+    public AddressDTO addAddress(@RequestBody AddressDTO addressDTO) {
+        return addressBookService.addAddress(addressDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Address> updateAddress(@PathVariable Long id, @RequestBody Address address) {
-        return addressBookService.updateAddress(id, address);
+    public ResponseEntity<AddressDTO> updateAddress(@PathVariable Long id, @RequestBody AddressDTO addressDTO) {
+        return addressBookService.updateAddress(id, addressDTO);
     }
 
     @DeleteMapping("/{id}")

@@ -17,4 +17,10 @@ public class Address {
     private String name;
     private String phoneNumber;
     private String email;
+
+    public Address(String name, String phoneNumber, String email) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
 }
