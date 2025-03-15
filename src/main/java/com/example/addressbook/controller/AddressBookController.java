@@ -2,6 +2,7 @@ package com.example.addressbook.controller;
 
 import com.example.addressbook.dto.AddressDTO;
 import com.example.addressbook.service.AddressBookService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
