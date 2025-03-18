@@ -29,6 +29,7 @@ public class AddressBookService {
         }
     }
 
+    @Cacheable(value = "addresses", key = "#id")
     public ResponseEntity<AddressDTO> getAddressById(Long id) {
         try {
             log.info("Fetching address with ID: {}", id);
@@ -46,6 +47,7 @@ public class AddressBookService {
         }
     }
 
+    @CachePut(value = "addresses", key = "#result.id")
     public AddressDTO addAddress(AddressDTO addressDTO) {
         try {
             addressDTO.setId(idCounter.getAndIncrement());
@@ -58,6 +60,7 @@ public class AddressBookService {
         }
     }
 
+    @CachePut(value = "addresses", key = "#id")
     public ResponseEntity<AddressDTO> updateAddress(Long id, AddressDTO updatedDTO) {
         try {
             for (AddressDTO address : addressList) {
@@ -77,6 +80,7 @@ public class AddressBookService {
         }
     }
 
+    @CacheEvict(value = "addresses", key = "#id")
     public ResponseEntity<Void> deleteAddress(Long id) {
         try {
             boolean removed = addressList.removeIf(address -> address.getId().equals(id));
