@@ -2,13 +2,12 @@ package com.example.addressbook.controller;
 
 import com.example.addressbook.dto.AddressDTO;
 import com.example.addressbook.service.AddressBookService;
-import lombok.Getter;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/addresses")
 public class AddressBookController {
@@ -17,8 +16,9 @@ public class AddressBookController {
     private AddressBookService addressBookService;
 
     @GetMapping
-    public List<AddressDTO> getAllAddresses() {
-        return addressBookService.getAllAddresses();
+    public ResponseEntity<List<AddressDTO>> getAllAddresses() {
+        List<AddressDTO> addresses = addressBookService.getAllAddresses();
+        return ResponseEntity.ok(addresses);
     }
 
     @GetMapping("/{id}")
@@ -27,12 +27,13 @@ public class AddressBookController {
     }
 
     @PostMapping
-    public AddressDTO addAddress(@RequestBody AddressDTO addressDTO) {
-        return addressBookService.addAddress(addressDTO);
+    public ResponseEntity<AddressDTO> addAddress(@Valid @RequestBody AddressDTO addressDTO) {
+        AddressDTO savedAddress = addressBookService.addAddress(addressDTO);
+        return ResponseEntity.ok(savedAddress);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AddressDTO> updateAddress(@PathVariable Long id, @RequestBody AddressDTO addressDTO) {
+    public ResponseEntity<AddressDTO> updateAddress(@PathVariable Long id, @Valid @RequestBody AddressDTO addressDTO) {
         return addressBookService.updateAddress(id, addressDTO);
     }
 
